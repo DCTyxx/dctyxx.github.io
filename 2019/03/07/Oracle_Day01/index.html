@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="Oracle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle_Day01">
+<meta property="og:url" content="http://yoursite.com/2019/03/07/Oracle_Day01/index.html">
+<meta property="og:site_name" content="Sugar Free Ginger Tea Blog">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c80b9b558620.jpg">
+<meta property="og:updated_time" content="2019-03-07T06:54:54.352Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oracle_Day01">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/07/5c80b9b558620.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/07/Oracle_Day01/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Oracle_Day01 | Sugar Free Ginger Tea Blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-135652399-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sugar Free Ginger Tea Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Dream Catcher</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/Oracle_Day01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姜茶无糖">
+      <meta itemprop="description" content="所有的伟大都源于一个勇敢的开始">
+      <meta itemprop="image" content="/images/pic4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugar Free Ginger Tea Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Oracle_Day01
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-07 15:22:15 / 修改时间：14:54:54" itemprop="dateCreated datePublished" datetime="2019-03-07T15:22:15+08:00">2019-03-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/07/Oracle_Day01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/07/Oracle_Day01/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://i.loli.net/2019/03/07/5c80b9b558620.jpg" alt="Oracle.jpg" title="Oracle.jpg"><br><a id="more"></a></p>
+<h3 id="将数据保存在文件中的弊端"><a href="#将数据保存在文件中的弊端" class="headerlink" title="将数据保存在文件中的弊端"></a>将数据保存在文件中的弊端</h3><p>1.安全性很低。<br>2.不利于数据管理和查询。<br>3.文件不适合存放海量数据。<br>4.文件在操作的时候不方便。<br>为了解决上述问题，人们设计出了更利于管理数据的东西，数据库（本质上就是一个软件），能够有效的管理数据可，数据库也是衡量程序员的重要标准。</p>
+<hr>
+<h3 id="市面上主流的数据库"><a href="#市面上主流的数据库" class="headerlink" title="市面上主流的数据库"></a>市面上主流的数据库</h3><p>   Oracle，Sql server，database2，Mysql</p>
+<hr>
+<h3 id="小型，中型，大型数据库，应该如何选择"><a href="#小型，中型，大型数据库，应该如何选择" class="headerlink" title="小型，中型，大型数据库，应该如何选择"></a>小型，中型，大型数据库，应该如何选择</h3><p>依据安全性，负载量，成本，项目规模进行选择。</p>
+<hr>
+<h3 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h3><h4 id="一个认知："><a href="#一个认知：" class="headerlink" title="一个认知："></a>一个认知：</h4><h5 id="什么是Oracle"><a href="#什么是Oracle" class="headerlink" title="什么是Oracle?"></a>什么是Oracle?</h5><p>&emsp; &emsp;  Oracle是占市场份额最多的关系型数据库，上课试用版本为11g(目前已更新到18c)。</p>
+<h4 id="俩个概念："><a href="#俩个概念：" class="headerlink" title="俩个概念："></a>俩个概念：</h4><h5 id="什么叫数据库？"><a href="#什么叫数据库？" class="headerlink" title="什么叫数据库？"></a>什么叫数据库？</h5><p>&emsp; &emsp; 存储数据的仓库。</p>
+<h5 id="什么叫关系型数据库？"><a href="#什么叫关系型数据库？" class="headerlink" title="什么叫关系型数据库？"></a>什么叫关系型数据库？</h5><p>&emsp; &emsp;数据库中保存的数据对象之间可以存在一些联系，表与表之间会有联系（主键，外键），表（table）：二维表，成行（属性，字段），并非独立存在。</p>
+<h4 id="三个名词："><a href="#三个名词：" class="headerlink" title="三个名词："></a>三个名词：</h4><p>&emsp; &emsp; sql：操作数据库的结构化语言，是一种符合ANSI的标准计算机语言。<br>&emsp; &emsp; sqlplus：SQL命令行，Oracle自带的可以输入sql语言的终端，并将最近结果展示在终端上。<br>&emsp; &emsp; plsql：程序化sql语言。在sql语言基础上新加了一些逻辑，使之形成sql块，从而完成某些复杂的特定功能。</p>
+<h4 id="四种对象："><a href="#四种对象：" class="headerlink" title="四种对象："></a>四种对象：</h4><p>&emsp; &emsp;table–表：表格，由行与列组成，行（元祖），列（字段），每一行即一条完整的数据，view–视图，序列，索引。</p>
+<h4 id="五种分类：针对于sql语句进行分类"><a href="#五种分类：针对于sql语句进行分类" class="headerlink" title="五种分类：针对于sql语句进行分类"></a>五种分类：针对于sql语句进行分类</h4><p>&emsp; &emsp;DDL（数据定义语言）：create关键字</p>
+<p>&emsp; &emsp;DQL（数据查询语言）：select关键字</p>
+<p>&emsp; &emsp;DML（数据操作语言）：insert（增），delete（删），update（改）</p>
+<p>&emsp; &emsp;DTL（事物控制语言）：commit（提交事务）,rollback（事务回滚）</p>
+<p>&emsp; &emsp;DCL（数据控制语言）：grant（赋予权限），revoke（撤销权限）</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById(&quot;QR&quot;); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="姜茶无糖 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="姜茶无糖 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Oracle/" rel="tag"># Oracle</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/pic4.jpg" alt="姜茶无糖">
+            
+              <p class="site-author-name" itemprop="name">姜茶无糖</p>
+              <div class="site-description motion-element" itemprop="description">所有的伟大都源于一个勇敢的开始</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#将数据保存在文件中的弊端"><span class="nav-number">1.</span> <span class="nav-text">将数据保存在文件中的弊端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#市面上主流的数据库"><span class="nav-number">2.</span> <span class="nav-text">市面上主流的数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小型，中型，大型数据库，应该如何选择"><span class="nav-number">3.</span> <span class="nav-text">小型，中型，大型数据库，应该如何选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oracle"><span class="nav-number">4.</span> <span class="nav-text">Oracle</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个认知："><span class="nav-number">4.1.</span> <span class="nav-text">一个认知：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是Oracle"><span class="nav-number">4.1.1.</span> <span class="nav-text">什么是Oracle?</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#俩个概念："><span class="nav-number">4.2.</span> <span class="nav-text">俩个概念：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么叫数据库？"><span class="nav-number">4.2.1.</span> <span class="nav-text">什么叫数据库？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么叫关系型数据库？"><span class="nav-number">4.2.2.</span> <span class="nav-text">什么叫关系型数据库？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三个名词："><span class="nav-number">4.3.</span> <span class="nav-text">三个名词：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四种对象："><span class="nav-number">4.4.</span> <span class="nav-text">四种对象：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五种分类：针对于sql语句进行分类"><span class="nav-number">4.5.</span> <span class="nav-text">五种分类：针对于sql语句进行分类</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">姜茶无糖</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+  
+  
+  <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2019/03/07/Oracle_Day01/";
+    this.page.identifier = "2019/03/07/Oracle_Day01/";
+    this.page.title = 'Oracle_Day01';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
