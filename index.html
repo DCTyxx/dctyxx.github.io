@@ -339,6 +339,688 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/Python迭代器与生成器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姜茶无糖">
+      <meta itemprop="description" content="所有的伟大都源于一个勇敢的开始">
+      <meta itemprop="image" content="/images/pic4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugar Free Ginger Tea Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/30/Python迭代器与生成器/" class="post-title-link" itemprop="url">Python 迭代器与生成器</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-30 21:29:20" itemprop="dateCreated datePublished" datetime="2019-03-30T21:29:20+08:00">2019-03-30</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/30/Python迭代器与生成器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/30/Python迭代器与生成器/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><p>&emsp;&emsp; 在python中只要含有<strong>iner</strong>方法的都是可迭代的——————可迭代协议。<br>&emsp;&emsp; 内部含有<strong>next</strong>方法和<strong>iter</strong>方法的都是迭代器————迭代器协议。<br>&emsp;&emsp; 可以被for循环的都是可迭代的，可迭代的内部都有<strong>inner</strong>方法，只要是迭代器，一定可迭代。可迭代的<strong>iter</strong>（）方法就可以得到一个迭代器，迭代器中的<strong>next（）</strong>方法可以一个一个获取值。for循环其实就是在使用迭代器。只有是可迭代对象的时候才能用for，当我们遇到一个新的变量，不能确定能不能for循环的时候，就判断他是否可迭代。<br>&emsp;&emsp; 迭代器的好处：<br>&emsp;&emsp; 1、从容器类型中一个一个的取值，会把所有的值都取到。<br>&emsp;&emsp; 2、节省空间。</p>
+<h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><h2 id="生成器函数"><a href="#生成器函数" class="headerlink" title="生成器函数"></a>生成器函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#只要含有yield关键字的函数都是生成器函数，yield函数不能和return共用，且需要写在函数内部，yield执行后不会结束函数。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'a'</span></span><br><span class="line"><span class="comment">#生成器函数：执行之后会得到一个生成器作为返回值。</span></span><br><span class="line">ret = generator()<span class="comment">#获取生成器。</span></span><br><span class="line">print(ret) <span class="comment">#打印生成器。</span></span><br><span class="line">print(ret.__next__())</span><br></pre></td></tr></table></figure>
+<h2 id="生成器函数进阶"><a href="#生成器函数进阶" class="headerlink" title="生成器函数进阶"></a>生成器函数进阶</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="number">123</span>)</span><br><span class="line">    content = <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    print(<span class="string">"*****"</span>,content)</span><br><span class="line">    print(<span class="number">456</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">g=generator()</span><br><span class="line">ret = g.__next__()</span><br><span class="line">print(<span class="string">"***"</span>,ret)</span><br><span class="line">ret = g.send(<span class="string">'hello'</span>)<span class="comment"># send的效果和next一样，但是send可以再获取下一个值的同时，传入一个值。</span></span><br><span class="line">print(<span class="string">"***"</span>,ret)</span><br></pre></td></tr></table></figure>
+<p>函数输出为：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">123</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">*****hello</span><br><span class="line"><span class="number">456</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p>另一种输出方法：yield from<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator</span><span class="params">()</span>:</span></span><br><span class="line">    a=<span class="string">'abcde'</span></span><br><span class="line">    b=<span class="string">'123456'</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> a</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> b</span><br><span class="line">    </span><br><span class="line">g=generator()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> g:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp; send获取下一个值的效果和next基本一致，只是在获取下一个值的时候，给上一个值的位置传递一个数据。<br>&emsp;&emsp; 使用send的注意事项：<br>&emsp;&emsp; 第一次使用生成器的时候是用next获取下一个值。<br>&emsp;&emsp; 最后一个yield不能接受外部的值。</p>
+<h3 id="获取移动平均值"><a href="#获取移动平均值" class="headerlink" title="获取移动平均值"></a>获取移动平均值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">(func)</span></span></span><br><span class="line"><span class="function">    <span class="title">def</span> <span class="title">inner</span><span class="params">(*args,**kwargs)</span>:</span></span><br><span class="line">        g=func(*args,**kwargs)</span><br><span class="line">        g.__next__()</span><br><span class="line">        <span class="keyword">return</span> g</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line">    </span><br><span class="line"><span class="meta">@init </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">average</span><span class="params">()</span>:</span></span><br><span class="line">    sum=<span class="number">0</span></span><br><span class="line">    count=<span class="number">0</span></span><br><span class="line">    avg=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        num=<span class="keyword">yield</span> avg</span><br><span class="line">        sum+=num</span><br><span class="line">        count +=<span class="number">1</span></span><br><span class="line">        avg = sum/count</span><br><span class="line">        </span><br><span class="line">avg_g = average()</span><br><span class="line">avg1 = avg_g.send(<span class="number">10</span>)</span><br><span class="line">avg1 = avg_g.send(<span class="number">20</span>)</span><br><span class="line">print(avg1)</span><br></pre></td></tr></table></figure>
+<h1 id="生成器表达式与各种推导式"><a href="#生成器表达式与各种推导式" class="headerlink" title="生成器表达式与各种推导式"></a>生成器表达式与各种推导式</h1><h2 id="生成器表达式"><a href="#生成器表达式" class="headerlink" title="生成器表达式"></a>生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g=(i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> g:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+<h2 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)] <span class="comment">#这就是列表推导式，一种for语句的简洁版本，只能解决一些简单的问题</span></span><br></pre></td></tr></table></figure>
+<p>列表推导式的简单格式：[满足条件的元素相关的操作 for 元素 in 可迭代数据类型 if 元素相关的条件]</p>
+<p>例题：30以内所有能被3整除的数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">30</span>) <span class="keyword">if</span> i%<span class="number">3</span> ==<span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
+<p>例题：30以内所有能被3整除的平方<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[i*i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">30</span>) <span class="keyword">if</span> i%<span class="number">3</span> ==<span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
+<p>例题：寻找嵌套列表中名字含有俩个e的所有名字<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">names = [[<span class="string">'Tom'</span>,<span class="string">'Billy'</span>,<span class="string">'Jefferson'</span>,<span class="string">'Andrew'</span>,<span class="string">'Wesley'</span>,<span class="string">'Steven'</span>,<span class="string">'Joe'</span>],[<span class="string">'Alice'</span>,<span class="string">'Jill'</span>,<span class="string">'Ana'</span>,<span class="string">'Wendy'</span>,<span class="string">'Jennifer'</span>,<span class="string">'Shetrry'</span>,<span class="string">'Eva'</span>]]</span><br><span class="line">ret = [name <span class="keyword">for</span> lst <span class="keyword">in</span> names <span class="keyword">for</span> name <span class="keyword">in</span> lst <span class="keyword">if</span> name.count(<span class="string">'e'</span>)==<span class="number">2</span>]</span><br></pre></td></tr></table></figure></p>
+<h2 id="字典推导式"><a href="#字典推导式" class="headerlink" title="字典推导式"></a>字典推导式</h2><p>例题：将一个字典的key与value对调<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mcase = &#123;<span class="string">'a'</span>:<span class="string">'10'</span>,<span class="string">'b'</span>:<span class="string">'34'</span>&#125;</span><br><span class="line">mcase_frequency=&#123;mcase[k]:k <span class="keyword">for</span> k <span class="keyword">in</span> mcase&#125;</span><br></pre></td></tr></table></figure></p>
+<p>例题：合并大小写对应的value值，将k统一成小写<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mcase=&#123;<span class="string">'a'</span>:<span class="number">10</span>,<span class="string">'b'</span>:<span class="number">34</span>,<span class="string">'A'</span>:<span class="number">7</span>,<span class="string">'Z'</span>:<span class="number">3</span>&#125;</span><br><span class="line">mcase_frequency = &#123;k.lower():mcase.get(k.lower(),<span class="number">0</span>)+mcase.get(k.upper(),<span class="number">0</span>) <span class="keyword">for</span> k <span class="keyword">in</span> mcase&#125; <span class="comment">#get(k.lower(),0)若取不到相关的数值则返回0</span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/Python装饰器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姜茶无糖">
+      <meta itemprop="description" content="所有的伟大都源于一个勇敢的开始">
+      <meta itemprop="image" content="/images/pic4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugar Free Ginger Tea Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/30/Python装饰器/" class="post-title-link" itemprop="url">Python 装饰器</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-30 15:28:02" itemprop="dateCreated datePublished" datetime="2019-03-30T15:28:02+08:00">2019-03-30</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/30/Python装饰器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/30/Python装饰器/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="装饰器形成的过程及作用"><a href="#装饰器形成的过程及作用" class="headerlink" title="装饰器形成的过程及作用"></a>装饰器形成的过程及作用</h1><p>&emsp;&emsp;在不想修改函数的调用方式，但是还想再原来的函数前后添加功能，timmer就是一个装饰器函数，只是对一个函数，有一些装饰器功能。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"xxxxxxxx"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timmer</span><span class="params">(func)</span>:</span><span class="comment">#装饰器函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        func()<span class="comment">#被装饰的函数</span></span><br><span class="line">        end = time.time()</span><br><span class="line">        print(end-start)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line">func = timmer(func) <span class="comment">#传入func，利用闭包返回inner</span></span><br><span class="line">func()<span class="comment">#调用func实际调用inner，而自定义函数已经在inner中</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="原则：开放封闭原则"><a href="#原则：开放封闭原则" class="headerlink" title="原则：开放封闭原则"></a>原则：开放封闭原则</h1><p> &emsp;&emsp;开放：对拓展是开放的<br> &emsp;&emsp;封闭：对修改是封闭的</p>
+<h1 id="装饰器的固定模式"><a href="#装饰器的固定模式" class="headerlink" title="装饰器的固定模式"></a>装饰器的固定模式</h1><p> &emsp;&emsp;装饰带参数函数的装饰器<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timmer</span><span class="params">(func)</span>:</span><span class="comment">#装饰器函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">(*args,**kwargs)</span>:</span><span class="comment">#*args为动态参数</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        ret = func(*args,**kwargs)<span class="comment">#被装饰的函数</span></span><br><span class="line">        end = time.time()</span><br><span class="line">        print(end-start)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"><span class="meta">@timmer  #语法糖 等同于 func = timmer(func) #传入func，利用闭包返回inner</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(a)</span>:</span><span class="comment">#被装饰的函数</span></span><br><span class="line">    print(<span class="string">"xxxxxxxx"</span>)</span><br><span class="line">    <span class="keyword">return</span> “新年好”</span><br><span class="line">ret = func(a)<span class="comment">#调用func实际调用inner，而自定义函数已经在inner中</span></span><br><span class="line"><span class="meta">@timmer  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">(a，b)</span>:</span></span><br><span class="line">    print(<span class="string">"xxxxxxxx"</span>)</span><br><span class="line">    <span class="keyword">return</span> “新年好”</span><br><span class="line">ret = func2(a,b)</span><br></pre></td></tr></table></figure></p>
+<p> &emsp;&emsp; 装饰器的固定模式<br> <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(f)</span>:</span><span class="comment">#装饰器函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">(*args,**kwargs)</span>:</span></span><br><span class="line">        <span class="string">'''在被装饰之前要做的事'''</span></span><br><span class="line">        ret = f(*args,**kwargs)<span class="comment">#被装饰的函数</span></span><br><span class="line">        <span class="string">'''在被装饰函数之后要做的事情'''</span></span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line">     </span><br><span class="line"><span class="meta">@wrapper</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(a,b)</span></span></span><br><span class="line"><span class="function">    <span class="title">print</span><span class="params">(<span class="string">"xxxxxxxxxx"</span>)</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line">ret = func(a,b)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;打印函数的名字<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> funtools <span class="keyword">import</span> wraps</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(f)</span>:</span><span class="comment">#装饰器函数</span></span><br><span class="line"><span class="meta">     @wraps(f)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">(*args,**kwargs)</span>:</span></span><br><span class="line">        <span class="string">'''在被装饰之前要做的事'''</span></span><br><span class="line">        ret = f(*args,**kwargs)<span class="comment">#被装饰的函数</span></span><br><span class="line">        <span class="string">'''在被装饰函数之后要做的事情'''</span></span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"><span class="meta">@wrapper</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(a,b)</span></span></span><br><span class="line"><span class="function">    <span class="title">print</span><span class="params">(<span class="string">"xxxxxxxxxx"</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(func.__name__)</span></span></span><br><span class="line">ret = func(a,b)</span><br></pre></td></tr></table></figure></p>
+<h1 id="装饰器习题"><a href="#装饰器习题" class="headerlink" title="装饰器习题"></a>装饰器习题</h1><p>&emsp;&emsp; 编写装饰器，为多个函数加上认证的功能，要求登录成功一次，后续的函数都不需要再输入用户名跟密码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">FLAG=<span class="literal">False</span>  <span class="comment">#创建全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">(*args,**kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">global</span> FLAG <span class="comment">#使用全局变量</span></span><br><span class="line">        <span class="string">'''登录程序'''</span></span><br><span class="line">        <span class="keyword">if</span> FLAG:</span><br><span class="line">            ret=func(*args,**kwargs)<span class="comment">#func是被装饰的函数</span></span><br><span class="line">            <span class="keyword">return</span> ret</span><br><span class="line">        <span class="keyword">else</span>:   </span><br><span class="line">            username = input(<span class="string">'username:'</span>)</span><br><span class="line">            password = input(<span class="string">'password:'</span>)</span><br><span class="line">            <span class="keyword">if</span> username=<span class="string">'user'</span> <span class="keyword">and</span> password=<span class="string">'pass'</span>:</span><br><span class="line">                FLAG=<span class="literal">True</span></span><br><span class="line">                ret=func(*args,**kwargs)<span class="comment">#func是被装饰的函数</span></span><br><span class="line">                <span class="keyword">return</span> ret</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                print(<span class="string">"登录失败"</span>)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@login</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shoplist_add</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'增加一件物品'</span>)</span><br><span class="line"><span class="meta">@login</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shoplist_del</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'删除一件物品'</span>)</span><br><span class="line"></span><br><span class="line">shoplist_add()</span><br></pre></td></tr></table></figure></p>
+<h1 id="装饰器进阶"><a href="#装饰器进阶" class="headerlink" title="装饰器进阶"></a>装饰器进阶</h1><h2 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">FLAG=<span class="literal">False</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timmer_out</span><span class="params">(flag)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">timmer</span><span class="params">(func)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">(*args,**kwargs)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> flag:</span><br><span class="line">                start=time.time()</span><br><span class="line">                ret=func(*args,**kwargs)</span><br><span class="line">                end=time.time()</span><br><span class="line">                print(end-start)</span><br><span class="line">                <span class="keyword">return</span> ret</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ret=func(*args,**kwargs)</span><br><span class="line">                <span class="keyword">return</span> ret</span><br><span class="line">        <span class="keyword">return</span> inner</span><br><span class="line">    <span class="keyword">return</span> timmer</span><br><span class="line"><span class="meta">@timmer_out(FLAG)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dct</span><span class="params">()</span>:</span></span><br><span class="line">    time.sleep(<span class="number">0.1</span>)</span><br><span class="line">    print(<span class="string">"dct"</span>)</span><br><span class="line"><span class="meta">@timmer_out(FLAG)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dct2</span><span class="params">()</span>:</span></span><br><span class="line">    time.sleep(<span class="number">0.1</span>)</span><br><span class="line">    print(<span class="string">"dct2"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="多个装饰器装饰一个函数"><a href="#多个装饰器装饰一个函数" class="headerlink" title="多个装饰器装饰一个函数"></a>多个装饰器装饰一个函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wrapper1</span> <span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner1</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"wrapper1,before func"</span>)</span><br><span class="line">        func()</span><br><span class="line">        print(<span class="string">"wrapper1,after func"</span>)</span><br><span class="line">    <span class="keyword">return</span> inner1</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wrapper2</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner2</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"wrapper2,before func"</span>)</span><br><span class="line">        func()</span><br><span class="line">        print(<span class="string">"wrapper2,after func"</span>)</span><br><span class="line">    <span class="keyword">return</span> inner2</span><br><span class="line">    </span><br><span class="line"><span class="meta">@wrapper2</span></span><br><span class="line"><span class="meta">@wrapper1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"in f"</span>)</span><br><span class="line"></span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wrapper2,before func</span><br><span class="line">wrapper1,before func</span><br><span class="line">in f</span><br><span class="line">wrapper1,after func</span><br><span class="line">wrapper2,after func</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/python闭包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姜茶无糖">
+      <meta itemprop="description" content="所有的伟大都源于一个勇敢的开始">
+      <meta itemprop="image" content="/images/pic4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugar Free Ginger Tea Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/30/python闭包/" class="post-title-link" itemprop="url">Python 闭包</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-30 11:31:07" itemprop="dateCreated datePublished" datetime="2019-03-30T11:31:07+08:00">2019-03-30</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/30/python闭包/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/30/python闭包/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="闭包的定义"><a href="#闭包的定义" class="headerlink" title="闭包的定义"></a>闭包的定义</h1><p>&emsp;&emsp; 闭包：嵌套函数，内部函数调用外部函数的变量<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    a=<span class="number">1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        print(a)</span><br><span class="line">    print(inner.__closure__)</span><br><span class="line">outer()</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;输出值为<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&lt;cell at <span class="number">0</span>xxxxxxxxxxxxxxx: <span class="keyword">in</span> object at <span class="number">0</span>xxxxxxxxxxxxxxx&gt;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="常见调用形式"><a href="#常见调用形式" class="headerlink" title="常见调用形式"></a>常见调用形式</h1><p>&emsp;&emsp; 将内部函数的低值作为返回值返回，在函数外部使用函数内部的函数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    a=<span class="number">1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        print(a)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line">inn = outer()</span><br><span class="line">inn()//在函数外部使用函数内部的函数</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp; 作用：保护非全局变量，节省了在函数调用过程中创建及生成的时间。</p>
+<h1 id="闭包的案例"><a href="#闭包的案例" class="headerlink" title="闭包的案例"></a>闭包的案例</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlopen</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_url</span><span class="params">()</span>:</span></span><br><span class="line">    url = <span class="string">'http://www.baidu.com'</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        ret = urlopen(url).read()</span><br><span class="line">        print(ret)</span><br><span class="line">    <span class="keyword">return</span> inner()</span><br><span class="line">get_func = get_url()</span><br><span class="line">get_func()</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/大数据3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姜茶无糖">
+      <meta itemprop="description" content="所有的伟大都源于一个勇敢的开始">
+      <meta itemprop="image" content="/images/pic4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugar Free Ginger Tea Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/12/大数据3/" class="post-title-link" itemprop="url">Linux基础（2）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-12 19:00:50" itemprop="dateCreated datePublished" datetime="2019-03-12T19:00:50+08:00">2019-03-12</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/12/大数据3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/12/大数据3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="VI全屏文本编辑器"><a href="#VI全屏文本编辑器" class="headerlink" title="VI全屏文本编辑器"></a>VI全屏文本编辑器</h1><ul>
+<li>打开文件<ul>
+<li>vim/path/to/somefile</li>
+<li>vim + # :打开文件，并定位于第#行</li>
+<li>vim + :打开文件，定位至最后一行</li>
+<li>vim +/PATTERN:打开文件，定位至第一次被PATTERN匹配到的行的行首<ul>
+<li>行首</li>
+<li>末行模式：</li>
+<li>:q 退出 没有动过文件</li>
+<li>:wq 保存并退出 动过了，不后悔</li>
+<li>:q! 不保存并退出，动过了，不后悔</li>
+<li>:w 保存</li>
+<li>:w! 强行保存</li>
+<li>:wq –&gt; :x</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>全屏编辑器</li>
+<li>模式：<ul>
+<li>编辑模式：按键具有编辑文本功能：默认打开进入编辑模式</li>
+<li>输入模式：案件本身意义</li>
+<li>末行模式：接受用户命令输入<ul>
+<li>编辑–&gt;输入：<ul>
+<li>i:在当前光标所在字符的前面，转为输入模式</li>
+<li>a:在当前光标所在字符的后面，转为输入模式</li>
+<li>o:在当前光标所在行的下方，新建一行，并转为输入模式</li>
+<li>O:在当前光标所在行的上方，新建一行，并转为输入模式</li>
+<li>I:在当前光标所在行的行首，转为输入模式</li>
+<li>A:在当前光标所在行的末尾，转为输入模式</li>
+<li>输入–&gt;编辑：<ul>
+<li>ESC</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>编辑-&gt;末行：<ul>
+<li>：</li>
+</ul>
+</li>
+<li>末行–&gt;编辑：<ul>
+<li>ESC,ESC </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/Oracle_Day03/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -695,7 +1377,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/11/大数据2/" class="post-title-link" itemprop="url">Linux基础（CentOS）</a>
+                <a href="/2019/03/11/大数据2/" class="post-title-link" itemprop="url">Linux基础（1）</a>
               
             
           </h1>
@@ -723,6 +1405,22 @@
               <time title="创建时间：2019-03-11 22:16:23" itemprop="dateCreated datePublished" datetime="2019-03-11T22:16:23+08:00">2019-03-11</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-12 17:54:14" itemprop="dateModified" datetime="2019-03-12T17:54:14+08:00">2019-03-12</time>
+              
             
           </span>
 
@@ -1244,7 +1942,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-11 22:19:47" itemprop="dateModified" datetime="2019-03-11T22:19:47+08:00">2019-03-11</time>
+                <time title="修改时间：2019-03-17 18:58:04" itemprop="dateModified" datetime="2019-03-17T18:58:04+08:00">2019-03-17</time>
               
             
           </span>
@@ -1341,705 +2039,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/枚举法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="姜茶无糖">
-      <meta itemprop="description" content="所有的伟大都源于一个勇敢的开始">
-      <meta itemprop="image" content="/images/pic4.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sugar Free Ginger Tea Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/09/枚举法/" class="post-title-link" itemprop="url">枚举法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-09 19:03:48" itemprop="dateCreated datePublished" datetime="2019-03-09T19:03:48+08:00">2019-03-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-10 20:10:25" itemprop="dateModified" datetime="2019-03-10T20:10:25+08:00">2019-03-10</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/03/09/枚举法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/09/枚举法/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>&emsp;&emsp;枚举法的本质就是从的所有候选答案中去搜索正确的解，使用该算法需要满足俩个条件：<br>&emsp;&emsp;（1）可预先确定候选答案的数量。<br>&emsp;&emsp;（2）候选答案的范围在求解之前必须有一个确定的集合。<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/09/枚举法/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/递推算法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="姜茶无糖">
-      <meta itemprop="description" content="所有的伟大都源于一个勇敢的开始">
-      <meta itemprop="image" content="/images/pic4.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sugar Free Ginger Tea Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/09/递推算法/" class="post-title-link" itemprop="url">递推算法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-09 17:52:27" itemprop="dateCreated datePublished" datetime="2019-03-09T17:52:27+08:00">2019-03-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-10 20:10:17" itemprop="dateModified" datetime="2019-03-10T20:10:17+08:00">2019-03-10</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/03/09/递推算法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/09/递推算法/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="递推算法"><a href="#递推算法" class="headerlink" title="递推算法"></a>递推算法</h1><p>&emsp;&emsp;递推算法使用“步步为营”，不断利用已有的信息推导出新的东西。</p>
-<h3 id="顺推法"><a href="#顺推法" class="headerlink" title="顺推法"></a>顺推法</h3>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/09/递推算法/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/单词2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="姜茶无糖">
-      <meta itemprop="description" content="所有的伟大都源于一个勇敢的开始">
-      <meta itemprop="image" content="/images/pic4.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sugar Free Ginger Tea Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/09/单词2/" class="post-title-link" itemprop="url">前缀定方向（2）</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-09 12:40:43" itemprop="dateCreated datePublished" datetime="2019-03-09T12:40:43+08:00">2019-03-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-10 11:34:38" itemprop="dateModified" datetime="2019-03-10T11:34:38+08:00">2019-03-10</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/03/09/单词2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/09/单词2/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="相反"><a href="#相反" class="headerlink" title="相反"></a>相反</h3><h5 id="25-un-（un-in-an-六个元音可以互相转换-a-e-i-o-u-y）"><a href="#25-un-（un-in-an-六个元音可以互相转换-a-e-i-o-u-y）" class="headerlink" title="25.un- （un- = in- = an- 六个元音可以互相转换 a=e=i=o=u=y）"></a>25.un- （un- = in- = an- 六个元音可以互相转换 a=e=i=o=u=y）</h5><h6 id="1-表示“不，无，非，没有”"><a href="#1-表示“不，无，非，没有”" class="headerlink" title="1.表示“不，无，非，没有”"></a>1.表示“不，无，非，没有”</h6><p>&emsp;&ensp;unreal 不真实（un+real真实的）<br>&emsp;&ensp;unequal 不平等的（un+equal平等的）<br>&emsp;&ensp;unfortunate 不幸运的（un+fortunate 幸运的）</p>
-<h6 id="2-表示“打开，解开，弄出”"><a href="#2-表示“打开，解开，弄出”" class="headerlink" title="2.表示“打开，解开，弄出”"></a>2.表示“打开，解开，弄出”</h6><p>&emsp;&ensp;unlock 开锁（un+lock锁）<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/09/单词2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/单词1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="姜茶无糖">
-      <meta itemprop="description" content="所有的伟大都源于一个勇敢的开始">
-      <meta itemprop="image" content="/images/pic4.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sugar Free Ginger Tea Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/08/单词1/" class="post-title-link" itemprop="url">前缀定方向（1）</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-08 21:22:37" itemprop="dateCreated datePublished" datetime="2019-03-08T21:22:37+08:00">2019-03-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-09 09:35:45" itemprop="dateModified" datetime="2019-03-09T09:35:45+08:00">2019-03-09</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/03/08/单词1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/08/单词1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="上面"><a href="#上面" class="headerlink" title="上面"></a>上面</h3><h5 id="1-super"><a href="#1-super" class="headerlink" title="1.super-"></a>1.super-</h5><p>super—&gt;up 向上，super的简体字sur 去除pe</p>
-<h6 id="1-表示“超级，超过，过度”"><a href="#1-表示“超级，超过，过度”" class="headerlink" title="1.表示“超级，超过，过度”"></a>1.表示“超级，超过，过度”</h6><p>&emsp;&ensp;supersized 超大型的（super+sized有范围的）<br>&emsp;&ensp;supernatural 超自然的（super+natural自然的）<br>&emsp;&ensp;superpower 超级大国<br>&emsp;&ensp;supersonic 超音速（sonic 声音）<br>&emsp;&ensp;supernormal 超长（super+normal 正常的 比正常人高的）<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/08/单词1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2089,7 +2088,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2107,8 +2106,6 @@
                     
                   
                     
-                    
-                      
                     
                       
                     
@@ -2227,7 +2224,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共11.9k字</span>
+  <span class="post-count">博客全站共15.2k字</span>
 </div>
 
 
