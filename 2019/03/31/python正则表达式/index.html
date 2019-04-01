@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="闭包的定义&amp;emsp;&amp;emsp; 闭包：嵌套函数，内部函数调用外部函数的变量123456def outer():    a=1    def inner():        print(a)    print(inner.__closure__)outer()">
+  <meta name="description" content="&amp;emsp;&amp;emsp;正则表达式本身也和python没有什么关系，就是匹配字符串内容的一种规则，正则表达式是对字符串操作的一种逻辑公式，就是实现定义好的一些特定字符，及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python 闭包">
-<meta property="og:url" content="http://yoursite.com/2019/03/30/python闭包/index.html">
+<meta property="og:title" content="Python 正则表达式">
+<meta property="og:url" content="http://yoursite.com/2019/03/31/python正则表达式/index.html">
 <meta property="og:site_name" content="Sugar Free Ginger Tea Blog">
-<meta property="og:description" content="闭包的定义&amp;emsp;&amp;emsp; 闭包：嵌套函数，内部函数调用外部函数的变量123456def outer():    a=1    def inner():        print(a)    print(inner.__closure__)outer()">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;正则表达式本身也和python没有什么关系，就是匹配字符串内容的一种规则，正则表达式是对字符串操作的一种逻辑公式，就是实现定义好的一些特定字符，及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-31T07:25:57.684Z">
+<meta property="og:updated_time" content="2019-04-01T10:48:55.392Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python 闭包">
-<meta name="twitter:description" content="闭包的定义&amp;emsp;&amp;emsp; 闭包：嵌套函数，内部函数调用外部函数的变量123456def outer():    a=1    def inner():        print(a)    print(inner.__closure__)outer()">
+<meta name="twitter:title" content="Python 正则表达式">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;正则表达式本身也和python没有什么关系，就是匹配字符串内容的一种规则，正则表达式是对字符串操作的一种逻辑公式，就是实现定义好的一些特定字符，及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/30/python闭包/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/31/python正则表达式/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>Python 闭包 | Sugar Free Ginger Tea Blog</title>
+  <title>Python 正则表达式 | Sugar Free Ginger Tea Blog</title>
   
 
 
@@ -339,7 +339,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/python闭包/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/python正则表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="姜茶无糖">
@@ -356,7 +356,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python 闭包
+          <h1 class="post-title" itemprop="name headline">Python 正则表达式
 
               
             
@@ -382,7 +382,7 @@
                 
               
 
-              <time title="创建时间：2019-03-30 11:31:07" itemprop="dateCreated datePublished" datetime="2019-03-30T11:31:07+08:00">2019-03-30</time>
+              <time title="创建时间：2019-03-31 22:29:18" itemprop="dateCreated datePublished" datetime="2019-03-31T22:29:18+08:00">2019-03-31</time>
             
 
             
@@ -399,7 +399,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-31 15:25:57" itemprop="dateModified" datetime="2019-03-31T15:25:57+08:00">2019-03-31</time>
+                <time title="修改时间：2019-04-01 18:48:55" itemprop="dateModified" datetime="2019-04-01T18:48:55+08:00">2019-04-01</time>
               
             
           </span>
@@ -417,8 +417,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/03/30/python闭包/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/30/python闭包/" itemprop="commentCount"></span>
+                <a href="/2019/03/31/python正则表达式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/31/python正则表达式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -446,12 +446,175 @@
       
 
       
-        <h1 id="闭包的定义"><a href="#闭包的定义" class="headerlink" title="闭包的定义"></a>闭包的定义</h1><p>&emsp;&emsp; 闭包：嵌套函数，内部函数调用外部函数的变量<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    a=<span class="number">1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        print(a)</span><br><span class="line">    print(inner.__closure__)</span><br><span class="line">outer()</span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>&emsp;&emsp;输出值为<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&lt;cell at <span class="number">0</span>xxxxxxxxxxxxxxx: <span class="keyword">in</span> object at <span class="number">0</span>xxxxxxxxxxxxxxx&gt;)</span><br></pre></td></tr></table></figure></p>
-<h1 id="常见调用形式"><a href="#常见调用形式" class="headerlink" title="常见调用形式"></a>常见调用形式</h1><p>&emsp;&emsp; 将内部函数的低值作为返回值返回，在函数外部使用函数内部的函数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    a=<span class="number">1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        print(a)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line">inn = outer()</span><br><span class="line">inn()<span class="comment">#在函数外部使用函数内部的函数</span></span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp; 作用：保护非全局变量，节省了在函数调用过程中创建及生成的时间。</p>
-<h1 id="闭包的案例"><a href="#闭包的案例" class="headerlink" title="闭包的案例"></a>闭包的案例</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlopen</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_url</span><span class="params">()</span>:</span></span><br><span class="line">    url = <span class="string">'http://www.baidu.com'</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        ret = urlopen(url).read()</span><br><span class="line">        print(ret)</span><br><span class="line">    <span class="keyword">return</span> inner()</span><br><span class="line">get_func = get_url()</span><br><span class="line">get_func()</span><br></pre></td></tr></table></figure>
+        <p>&emsp;&emsp;正则表达式本身也和python没有什么关系，就是匹配字符串内容的一种规则，正则表达式是对字符串操作的一种逻辑公式，就是实现定义好的一些特定字符，及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。<br><a id="more"></a><br>&emsp;&emsp; 字符组：[字符组]<br>&emsp;&emsp; 在同一个位置可能出现的各种字符组成了一个字符组，在正则表达式中用[]表示，字符的分类有很多种，比如数字、字母、标点符号等</p>
+<h1 id="元字符："><a href="#元字符：" class="headerlink" title="元字符："></a>元字符：</h1><table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>匹配内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>匹配除换行符以外的任意字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配字母或数字或下划线</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任意的空白符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>匹配一个换行符</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>匹配一个制表符</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词的结尾</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配字符串的开始</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串的结尾</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配非字母或数字或下划线</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配非数字</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配非空白符</td>
+</tr>
+<tr>
+<td>alb</td>
+<td>匹配字符a或者字符b</td>
+</tr>
+<tr>
+<td>（）</td>
+<td>匹配括号内的表达式，也表示一个组</td>
+</tr>
+<tr>
+<td>[…]</td>
+<td>匹配字符组中的字符</td>
+</tr>
+<tr>
+<td>[^…]</td>
+<td>级配出了字符组中字符的所有字符</td>
+</tr>
+</tbody>
+</table>
+<h1 id="量词："><a href="#量词：" class="headerlink" title="量词："></a>量词：</h1><table>
+<thead>
+<tr>
+<th>量词</th>
+<th>用法说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>重复0次或者更多次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>重复一次或更多次</td>
+</tr>
+<tr>
+<td>？</td>
+<td>重复零次或一次</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>重复n次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>重复n次或更多次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>匹配n到m次</td>
+</tr>
+</tbody>
+</table>
+<h1 id="转移符："><a href="#转移符：" class="headerlink" title="转移符："></a>转移符：</h1><p>&emsp;&emsp;在正则表达式中，有很多有特殊意义的是元字符，比如\d和\s等，如果要在正则中匹配正常的’\d’而不是“数字”就需要对”\”进行转译，变成’\‘，在Python中，无论是正则表达式，还是待匹配的内容，都以字符串的形式出现，在字符串中\也有特殊的含义，本身还需要转义，所以如果匹配一次“\d”，字符串中要写成”\d”，那么正则里就要写成”\\d”,这样就太麻烦了，这个时候我们用到了r’\d’这个概念，此时正则是r’\d’就可以了。</p>
+<table>
+<thead>
+<tr>
+<th>正则</th>
+<th>待匹配字符</th>
+<th>匹配结果</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\d</td>
+<td>\d</td>
+<td>False</td>
+<td>因为在正则表达式中\是具有特殊意义的字符，所以要匹配\d本身，用表达式\d无法匹配</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>\d</td>
+<td>True</td>
+<td>转义\之后变成\，即可匹配</td>
+</tr>
+<tr>
+<td>‘\\d’</td>
+<td>‘\d’</td>
+<td>True</td>
+<td>如果在python中，字符串中的’\’也需要转义，所以每一个字符串’\’又需要转义一次</td>
+</tr>
+<tr>
+<td>r’\d’</td>
+<td>r’\d’</td>
+<td>True</td>
+<td>在字符串之前加r，让整个字符串不转义</td>
+</tr>
+</tbody>
+</table>
+<h1 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a>贪婪匹配</h1><p>&emsp;&emsp;贪婪匹配：在不满足匹配时，匹配尽可能长的字符串，默认情况下，采用贪婪匹配。</p>
+<table>
+<thead>
+<tr>
+<th>正则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;.*&gt;</td>
+<td>默认为贪婪匹配模式，会匹配尽量长的字符串</td>
+</tr>
+<tr>
+<td>&lt;.*?&gt;</td>
+<td>加上?为将贪婪匹配模式转为非贪婪匹配模式，会匹配尽量短的字符串</td>
+</tr>
+</tbody>
+</table>
+<p>几个常用的非贪婪匹配<br><em>？ 重复任意次，但尽可能少重复
+</em>+ 重复1次或更多次，但尽可能少重复<br>?? 重复0次或1次，但尽可能少重复<br>{n,m} 重复n次到m次，但尽可能少重复<br>{n,} 重复n次以上，但尽可能少重复</p>
+<p>.<em>?的用法<br>.是任意字符
+</em>是取0至无限长度<br>？是非贪婪模式<br>合在一起就是，取尽量少的任意字符，一把不会单独写，大多数用在：.*?x 就是取前面任意长度的字符，直到x出现。</p>
 
       
     </div>
@@ -517,8 +680,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/12/大数据3/" rel="next" title="Linux基础（2）">
-                <i class="fa fa-chevron-left"></i> Linux基础（2）
+              <a href="/2019/03/30/Python迭代器与生成器/" rel="next" title="Python 迭代器与生成器">
+                <i class="fa fa-chevron-left"></i> Python 迭代器与生成器
               </a>
             
           </div>
@@ -527,8 +690,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/30/Python装饰器/" rel="prev" title="Python 装饰器">
-                Python 装饰器 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/31/python内置函数与匿名函数/" rel="prev" title="Python内置函数与匿名函数">
+                Python内置函数与匿名函数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -710,7 +873,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包的定义"><span class="nav-number">1.</span> <span class="nav-text">闭包的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见调用形式"><span class="nav-number">2.</span> <span class="nav-text">常见调用形式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包的案例"><span class="nav-number">3.</span> <span class="nav-text">闭包的案例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#元字符："><span class="nav-number">1.</span> <span class="nav-text">元字符：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#量词："><span class="nav-number">2.</span> <span class="nav-text">量词：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转移符："><span class="nav-number">3.</span> <span class="nav-text">转移符：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贪婪匹配"><span class="nav-number">4.</span> <span class="nav-text">贪婪匹配</span></a></li></ol></div>
             
 
           </div>
@@ -876,9 +1039,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "http://yoursite.com/2019/03/30/python闭包/";
-    this.page.identifier = "2019/03/30/python闭包/";
-    this.page.title = 'Python 闭包';
+    this.page.url = "http://yoursite.com/2019/03/31/python正则表达式/";
+    this.page.identifier = "2019/03/31/python正则表达式/";
+    this.page.title = 'Python 正则表达式';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
