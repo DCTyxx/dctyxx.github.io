@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Sugar Free Ginger Tea Blog">
 <meta property="og:description" content="面向过程VS面向对象面向过程的程序设计的核心是过程（流水线式思维），过程即解决问题的步骤，面向过程的设计就好比精心设计好一条流水线，考虑周全什么时候处理什么东西。优点是：极大的降低了写程序的复杂度，只需要顺着要执行的步骤，堆叠代码即可。缺点是：一套流水线或者流程就是用来解决一个问题，代码牵一发而动全身。 面向对象的程序设计的核心是对象（上帝思维模式），要理解对象为何物，必须把自己当成上帝，上帝眼里">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-10T14:25:10.173Z">
+<meta property="og:updated_time" content="2019-04-17T10:29:15.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 面向对象">
 <meta name="twitter:description" content="面向过程VS面向对象面向过程的程序设计的核心是过程（流水线式思维），过程即解决问题的步骤，面向过程的设计就好比精心设计好一条流水线，考虑周全什么时候处理什么东西。优点是：极大的降低了写程序的复杂度，只需要顺着要执行的步骤，堆叠代码即可。缺点是：一套流水线或者流程就是用来解决一个问题，代码牵一发而动全身。 面向对象的程序设计的核心是对象（上帝思维模式），要理解对象为何物，必须把自己当成上帝，上帝眼里">
@@ -399,7 +399,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-10 22:25:10" itemprop="dateModified" datetime="2019-04-10T22:25:10+08:00">2019-04-10</time>
+                <time title="修改时间：2019-04-17 18:29:15" itemprop="dateModified" datetime="2019-04-17T18:29:15+08:00">2019-04-17</time>
               
             
           </span>
@@ -469,6 +469,13 @@ class_name.walk(person)
 <span class="comment">#或者 对象.方法名()</span>
 person.walk()
 </code></pre>
+<p>考虑面向对象：<br>非常明显的处理一类事物，这些事物都具有相似的属性和功能，当有几个函数需要反反复复传入相同的参数的时候，就可以考虑面向对象。</p>
+<h1 id="class"><a href="#class" class="headerlink" title="class"></a>class</h1><p>函数：方法  ，动态属性<br>变量：类属性，静态属性<br><strong>init</strong>方法 初始化方法</p>
+<p>python帮我们创建了一个对象self<br>当我们调用类的时候就会自动触发这个方法。默认传self在init方法里面可以对self进行赋值。<br>self 拥有属性都属于对象，在类内部，self就是一个对象。</p>
+<h2 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h2><p>对象 = 类（参数是init方法的参数）</p>
+<h2 id="实例、对象"><a href="#实例、对象" class="headerlink" title="实例、对象"></a>实例、对象</h2><p>实例与对象，完全没有区别</p>
+<h2 id="对象查看属性"><a href="#对象查看属性" class="headerlink" title="对象查看属性"></a>对象查看属性</h2><p>对象.属性名</p>
+<h2 id="对象调用方法"><a href="#对象调用方法" class="headerlink" title="对象调用方法"></a>对象调用方法</h2><p>对象.方法名（参数）</p>
 
       
     </div>
@@ -543,6 +550,10 @@ person.walk()
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/18/python三大特性/" rel="prev" title="Python 面向对象的三大特性">
+                Python 面向对象的三大特性 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -621,7 +632,7 @@ person.walk()
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -648,9 +659,7 @@ person.walk()
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -723,7 +732,7 @@ person.walk()
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#面向过程VS面向对象"><span class="nav-number">1.</span> <span class="nav-text">面向过程VS面向对象</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#面向过程VS面向对象"><span class="nav-number">1.</span> <span class="nav-text">面向过程VS面向对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class"><span class="nav-number">2.</span> <span class="nav-text">class</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实例化"><span class="nav-number">2.1.</span> <span class="nav-text">实例化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例、对象"><span class="nav-number">2.2.</span> <span class="nav-text">实例、对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象查看属性"><span class="nav-number">2.3.</span> <span class="nav-text">对象查看属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象调用方法"><span class="nav-number">2.4.</span> <span class="nav-text">对象调用方法</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -776,7 +785,7 @@ person.walk()
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共19k字</span>
+  <span class="post-count">博客全站共21k字</span>
 </div>
 
 
