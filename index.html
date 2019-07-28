@@ -1271,7 +1271,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-17 18:29:15" itemprop="dateModified" datetime="2019-04-17T18:29:15+08:00">2019-04-17</time>
+                <time title="修改时间：2019-07-28 12:07:10" itemprop="dateModified" datetime="2019-07-28T12:07:10+08:00">2019-07-28</time>
               
             
           </span>
@@ -1319,42 +1319,19 @@
 
       
         
+          <p>摘要：面向过程VS面向对象、class<br>
+          <!--noindex-->
           
-            <h1 id="面向过程VS面向对象"><a href="#面向过程VS面向对象" class="headerlink" title="面向过程VS面向对象"></a>面向过程VS面向对象</h1><p>面向过程的程序设计的核心是过程（流水线式思维），过程即解决问题的步骤，面向过程的设计就好比精心设计好一条流水线，考虑周全什么时候处理什么东西。<br>优点是：极大的降低了写程序的复杂度，只需要顺着要执行的步骤，堆叠代码即可。<br>缺点是：一套流水线或者流程就是用来解决一个问题，代码牵一发而动全身。</p>
-<p>面向对象的程序设计的核心是对象（上帝思维模式），要理解对象为何物，必须把自己当成上帝，上帝眼里世间存在的万物皆为对象，不存在的也可以创造出来。<br>优点是：解决了程序的拓展性。对某一个对象单独修改，会立刻反应到整个体系中，如对游戏中一个人物参数的特征和技能修改都很容易。<br>缺点是：可控性差，无法向面向过程的程序设计流水线式的可以很精准的预测问题的处理流程与结果，面向对象的程序一旦开始就由对象之间的交互解决问题，即便是上帝也无法预测最终的结果。<br>应用场景：需求经常发生变化的软件，一半需求的变化都集中在用户层，互联网应用，企业内部软件，游戏等都是面向对象的程序设计大显身手的好地方</p>
-<p>自定义类：<br>定义最简单的类<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">class_name</span><span class="params">()</span>:</span></span><br><span class="line">    attributes = <span class="string">'a'</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">#打印类名中的属性</span></span><br><span class="line">print(class_name.attributes)</span><br><span class="line"><span class="comment">#类名的作用 就是操作属性，查看属性用的</span></span><br></pre></td></tr></table></figure></p>
-<p>在类中接受参数的方法</p>
-<pre><code class="python"><span class="class"><span class="keyword">class</span> <span class="title">class_name</span>:</span>
-    country = <span class="string">'China'</span> <span class="comment">#创造一个只要是这个类就一定有的属性，类属性/静态属性</span>
-    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,*args*)</span>:</span>  <span class="comment">#self就是一个可以存储很多属性的大字典，往字典里添加属性的方式发生了一些变化。</span>
-        self.name1 = args[<span class="number">0</span>]
-        self.name2 = args[<span class="number">1</span>]
-        self.name3 = args[<span class="number">2</span>]
-        self.name4 = args[<span class="number">3</span>]
-        self.__dict__ <span class="comment">#可以生成一个字典</span>
-
-    <span class="function"><span class="keyword">def</span> <span class="title">walk</span><span class="params">(self)</span>:</span>
-        print(<span class="string">'走走走'</span>)
-
-<span class="comment">#对象实例化</span>
-person = class_name(<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>)
-<span class="comment">#调用方法 类名.方法名(对象名)</span>
-class_name.walk(person)
-<span class="comment">#或者 对象.方法名()</span>
-person.walk()
-</code></pre>
-<p>考虑面向对象：<br>非常明显的处理一类事物，这些事物都具有相似的属性和功能，当有几个函数需要反反复复传入相同的参数的时候，就可以考虑面向对象。</p>
-<h1 id="class"><a href="#class" class="headerlink" title="class"></a>class</h1><p>函数：方法  ，动态属性<br>变量：类属性，静态属性<br><strong>init</strong>方法 初始化方法</p>
-<p>python帮我们创建了一个对象self<br>当我们调用类的时候就会自动触发这个方法。默认传self在init方法里面可以对self进行赋值。<br>self 拥有属性都属于对象，在类内部，self就是一个对象。</p>
-<h2 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h2><p>对象 = 类（参数是init方法的参数）</p>
-<h2 id="实例、对象"><a href="#实例、对象" class="headerlink" title="实例、对象"></a>实例、对象</h2><p>实例与对象，完全没有区别</p>
-<h2 id="对象查看属性"><a href="#对象查看属性" class="headerlink" title="对象查看属性"></a>对象查看属性</h2><p>对象.属性名</p>
-<h2 id="对象调用方法"><a href="#对象调用方法" class="headerlink" title="对象调用方法"></a>对象调用方法</h2><p>对象.方法名（参数）</p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/09/Python面向对象/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
 
     
 
