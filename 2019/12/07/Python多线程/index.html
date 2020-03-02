@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：操作系统简述、基于TCP协议的网络编程、基于UDP协议的网络编程、黏包现象、解决黏包现象的方法、struct模块定制报头、socketserver模块">
+<meta name="keywords" content="姜茶无糖">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 多线程">
+<meta property="og:url" content="http://yoursite.com/2019/12/07/Python多线程/index.html">
+<meta property="og:site_name" content="Sugar Free Ginger Tea Blog">
+<meta property="og:description" content="摘要：操作系统简述、基于TCP协议的网络编程、基于UDP协议的网络编程、黏包现象、解决黏包现象的方法、struct模块定制报头、socketserver模块">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/12/07/KUdFsQpB21CtSwW.png">
+<meta property="og:updated_time" content="2019-12-08T09:58:07.045Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 多线程">
+<meta name="twitter:description" content="摘要：操作系统简述、基于TCP协议的网络编程、基于UDP协议的网络编程、黏包现象、解决黏包现象的方法、struct模块定制报头、socketserver模块">
+<meta name="twitter:image" content="https://i.loli.net/2019/12/07/KUdFsQpB21CtSwW.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/07/Python多线程/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python 多线程 | Sugar Free Ginger Tea Blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-135652399-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/DCTyxx" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sugar Free Ginger Tea Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Dream Catcher</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-python" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/07/Python多线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姜茶无糖">
+      <meta itemprop="description" content="所有的伟大都源于一个勇敢的开始">
+      <meta itemprop="image" content="/images/pic4.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugar Free Ginger Tea Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python 多线程
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-07 19:05:04" itemprop="dateCreated datePublished" datetime="2019-12-07T19:05:04+08:00">2019-12-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-08 17:58:07" itemprop="dateModified" datetime="2019-12-08T17:58:07+08:00">2019-12-08</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/12/07/Python多线程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/07/Python多线程/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>摘要：操作系统简述、基于TCP协议的网络编程、基于UDP协议的网络编程、黏包现象、解决黏包现象的方法、struct模块定制报头、socketserver模块<br><a id="more"></a></p>
+<h1 id="多道系统程序"><a href="#多道系统程序" class="headerlink" title="多道系统程序"></a>多道系统程序</h1><p>单处理机系统中多到程序运行时的特点：<br>（1）多道：计算机内存中同时存放几道相互独立的程序<br>（2）宏观上并行：同时进入系统的几道程序都处于运行过程中，即他们先后开始了各自的运行，但都未运行完毕。<br>（3）微观上串行：实际上，各道程序轮流地用CPU，并交替运行。</p>
+<p>多道批处理系统有两个特点：<br>（1）多道：系统内可同时容纳多个作业。<br>（2）成批：在系统运行过程中，不允许用户与其作业发生交互作用。</p>
+<p>批处理系统的追求目标：提高系统资源利用率和系统吞吐量，以及作业流程的自动化。<br>批处理系统的一个重要缺点：不提供人机交互能力，给用户使用计算机带来不便。</p>
+<h1 id="分时系统"><a href="#分时系统" class="headerlink" title="分时系统"></a>分时系统</h1><p>由于CPU速度不符按提高和采用分时技术，一台计算机可同时连接多个用户终端，而每个用户可以在自己的终端上联机使用计算机。<br>分时系统的特点：<br>（1）多路性。若干个用户同时使用一台计算机。<br>（2）交互性。用户可根据系统对请求的响应结果，进一步向系统提出新的请求。<br>（3）独立性。用户之间可以相互独立操作，互不干扰。<br>（4）及时性。系统可对用户的输入及时作出响应。</p>
+<p>分时系统的主要目标：对用户响应的及时性，即不至于用户等待每一个命令的处理时间过长。</p>
+<h1 id="实时系统"><a href="#实时系统" class="headerlink" title="实时系统"></a>实时系统</h1><p>实时系统分为两类：<br>（1）实时控制系统。<br>（2）实时信息处理系统。<br>实施操作系统的主要特点：<br>（1）及时响应。<br>（2）高可靠性。</p>
+<h1 id="通用操作系统"><a href="#通用操作系统" class="headerlink" title="通用操作系统"></a>通用操作系统</h1><p>通用操作系统：具有多种类型操作特征的操作系统。可以同时兼有多道批处理、分时、实时处理的功能，或其中两种以上的功能。</p>
+<h1 id="什么是进程"><a href="#什么是进程" class="headerlink" title="什么是进程"></a>什么是进程</h1><h2 id="狭义定义"><a href="#狭义定义" class="headerlink" title="狭义定义"></a>狭义定义</h2><p>进程是正在运行的程序的实例。</p>
+<h2 id="广义定义"><a href="#广义定义" class="headerlink" title="广义定义"></a>广义定义</h2><p>进程是一个具有一定独立功能的程序关于某个数据集合的一次运行活动。它是操作系统动态执行的基本单元，在传统的操作系统中，进程既是基本的分配单元，同时也是基本的执行单元。</p>
+<h2 id="进程的概念"><a href="#进程的概念" class="headerlink" title="进程的概念"></a>进程的概念</h2><p>第一：进程是一个实体，每一个进程都有自己的地址空间，一般情况下，包括文本区域、数据区域和堆栈。<br>第二：进程是一个“执行中的程序”。程序是一个没有生命的实体，只有处理器赋予程序生命时，他才能成为一个活动的实体，称之为进程。</p>
+<p>注意：同一个程序执行量词，就会在操作系统中出现两个进程，所以我们可以同时运行一个软件，分别做不同的事情，不会混乱。</p>
+<h1 id="进程的调度算法"><a href="#进程的调度算法" class="headerlink" title="进程的调度算法"></a>进程的调度算法</h1><p>先来先服务算法、短作业优先调度算法、时间片轮转法、多集反馈队列（日后超链接更新）</p>
+<h1 id="进程的并行与并发"><a href="#进程的并行与并发" class="headerlink" title="进程的并行与并发"></a>进程的并行与并发</h1><h2 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h2><p>并行是指两者同时执行。</p>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>并发是指资源有限的情况下，两者交替轮流使用资源，目的是提高效率。</p>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>并行是从微观上，也就是在一个精准的时间片刻，有不同的程序在执行，这就要求必须有多个处理器。<br>并发是从宏观上，在一个时间段上可以看出是同时执行的，比如一个服务器同时处理多个session。</p>
+<h1 id="同步异步阻塞非阻塞"><a href="#同步异步阻塞非阻塞" class="headerlink" title="同步异步阻塞非阻塞"></a>同步异步阻塞非阻塞</h1><h2 id="进程的三状态转换图"><a href="#进程的三状态转换图" class="headerlink" title="进程的三状态转换图"></a>进程的三状态转换图</h2><p><img src="https://i.loli.net/2019/12/07/KUdFsQpB21CtSwW.png" alt="进程三状态转换图.png"><br>（1）就绪状态<br>当进程已分配到除CPU以外的所有必要的资源，只要活得处理机便可以立即执行，这时的进程状态称之为就绪状态。<br>（2）执行/运行状态<br>当进程已获得处理机，其程序正在处理机上执行，此时的进程称为执行状态。<br>（3）阻塞状态<br>当正在执行的进程，由于等待某个事件发生而无法执行时，便放弃处理机而处于阻塞状态，引起进程阻塞的事件可有多种，例如：等待I/O完成、申请缓冲区不能满足、等待信号等。</p>
+<h2 id="同步和异步"><a href="#同步和异步" class="headerlink" title="同步和异步"></a>同步和异步</h2><p>所谓同步就是一个人物的完成需要依赖另一个任务时，只有等待被依赖的任务完成后，依赖的任务才能算完成，这是一种可靠的任务序列，两个任务的状态可以保持一致。<br>所谓异步是不需要等待被依赖的任务完成，只是通知被依赖的任务要完成什么工作，依赖的任务也立即执行，只要自己的完成了整个任务就算完成了，所以异步是一种不可靠的任务序列。</p>
+<h2 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h2><p>阻塞和非阻塞这两个概念与程序等待消息通知时的状态有关。也就是说阻塞与非阻塞主要是程序等待消息通知时的状态角度来说的。</p>
+<h3 id="阻塞的形式"><a href="#阻塞的形式" class="headerlink" title="阻塞的形式"></a>阻塞的形式</h3><p>同步非阻塞形式、同步阻塞形式、异步阻塞形式、异步非阻塞形式，效率从前往后一次增加。</p>
+<h1 id="进程的开始与结束"><a href="#进程的开始与结束" class="headerlink" title="进程的开始与结束"></a>进程的开始与结束</h1><h2 id="进程的开始"><a href="#进程的开始" class="headerlink" title="进程的开始"></a>进程的开始</h2><p>1、系统初始化<br>2、一个进程在运行过程中开启了子进程<br>3、用户的交互式请求，而创建一个新进程</p>
+<h2 id="进程的结束"><a href="#进程的结束" class="headerlink" title="进程的结束"></a>进程的结束</h2><p>1、正常退出<br>2、出错退出<br>3、严重错误<br>4、被其他进程杀死</p>
+<h1 id="在Python程序中的进程操作"><a href="#在Python程序中的进程操作" class="headerlink" title="在Python程序中的进程操作"></a>在Python程序中的进程操作</h1><h2 id="创建进程（multiprocessing）"><a href="#创建进程（multiprocessing）" class="headerlink" title="创建进程（multiprocessing）"></a>创建进程（multiprocessing）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(args)</span>:</span></span><br><span class="line">    print(args)</span><br><span class="line">    print(<span class="number">12345</span>)</span><br><span class="line">    time.sleep(<span class="number">0.5</span>)</span><br><span class="line">    print(<span class="string">"子进程："</span>,os.getpid())<span class="comment">#获取当前进程号</span></span><br><span class="line">    print(<span class="number">54321</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 开启一个子进程</span></span><br><span class="line">    p = Process(target = func,args=(<span class="number">54321</span>,))<span class="comment">#注册，args用于传参，如果传一个参数，在参数后面必须加逗号</span></span><br><span class="line">    <span class="comment">#p是一个进程对象，还没启动进程</span></span><br><span class="line">    p.start() <span class="comment"># 当一个子进程被创建后，不会立即被执行，执行到p.start()时，启动一个子进程，操作系统创建新进程执行新进程中的代码</span></span><br><span class="line">    print(<span class="string">"1"</span>*<span class="number">10</span>)</span><br><span class="line">    print(<span class="string">"父进程："</span>,os.getpid())<span class="comment">#获取当前进程号</span></span><br><span class="line">    print(<span class="string">"父进程的父进程："</span>,os.getppid())<span class="comment">#获取当前进程的父进程</span></span><br></pre></td></tr></table></figure>
+<p>输出结果：<br>1111111111<br>父进程： 23428<br>父进程的父进程： 16656<br>54321<br>12345<br>子进程： 11552<br>54321</p>
+<p>说明p.start() 与 print(“<em>“</em>10)是同时执行的。</p>
+<h2 id="进程的生命周期"><a href="#进程的生命周期" class="headerlink" title="进程的生命周期"></a>进程的生命周期</h2><p>主进程，从运行代码开始到最后结束。<br>子进程，从start开始，到完成子进程代码结束<br>如果开启了子进程的主进程：主进程自己的代码如果过长，等待自己的代码执行结束。子进程的执行时间长，主进程会在主进程代码执行完毕之后等待子进程执行完毕之后，主进程才结束。</p>
+<h2 id="多进程当中的几个方法"><a href="#多进程当中的几个方法" class="headerlink" title="多进程当中的几个方法"></a>多进程当中的几个方法</h2><h3 id="join-方法"><a href="#join-方法" class="headerlink" title="join()方法"></a>join()方法</h3><p>p.join()方法，是感知一个子进程的结束，当调用时程序将异步程序改为同步程序。<br>例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg1,arg2)</span>:</span></span><br><span class="line">    print(<span class="string">"1"</span>*arg1)</span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    print(<span class="string">"1"</span>*arg2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    p = Process(target=func, args=(<span class="number">10</span>, <span class="number">20</span>))</span><br><span class="line">    p.start()</span><br><span class="line">    p.join()</span><br><span class="line">    print(<span class="string">"子进程运行完了"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>输出结果：<br>1111111111<br>11111111111111111111<br>子进程运行完了</p>
+<h3 id="同时开启多个线程（方式一）"><a href="#同时开启多个线程（方式一）" class="headerlink" title="同时开启多个线程（方式一）"></a>同时开启多个线程（方式一）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg1,arg2)</span>:</span></span><br><span class="line">    print(<span class="string">"1"</span>*arg1)</span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    print(<span class="string">"1"</span>*arg2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    p = Process(target=func, args=(<span class="number">10</span>, <span class="number">20</span>))</span><br><span class="line">    p.start()</span><br><span class="line">    p1 = Process(target=func, args=(<span class="number">11</span>, <span class="number">21</span>))</span><br><span class="line">    p1.start()</span><br><span class="line">    p2 = Process(target=func, args=(<span class="number">12</span>, <span class="number">22</span>))</span><br><span class="line">    p2.start()</span><br><span class="line">    p3 = Process(target=func, args=(<span class="number">13</span>, <span class="number">23</span>))</span><br><span class="line">    p3.start()</span><br></pre></td></tr></table></figure>
+<p>同时也可以用for循环<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg1,arg2)</span>:</span></span><br><span class="line">    print(<span class="string">"1"</span>*arg1)</span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    print(<span class="string">"1"</span>*arg2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        p = Process(target=func,args=(<span class="number">10</span>*i,<span class="number">20</span>*i))</span><br><span class="line">        p.start()</span><br></pre></td></tr></table></figure></p>
+<p>需求：当所有进程执行结束后执行print(“线程执行完毕”)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg1,arg2)</span>:</span></span><br><span class="line">    print(<span class="string">"1"</span>*arg1)</span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    print(<span class="string">"1"</span>*arg2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    p_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        p = Process(target=func,args=(<span class="number">10</span>*i,<span class="number">20</span>*i))</span><br><span class="line">        p_list.append(p)</span><br><span class="line">        p.start()</span><br><span class="line">    [p.join() <span class="keyword">for</span> p <span class="keyword">in</span> p_list]</span><br><span class="line">    print(<span class="string">"运行完了"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>在[p.join() for p in p_list]之前程序都是异步开始的，到p.join()时，程序才是同步的。适合的场景：主进程需要等待子进程结束后才能开始的情况下。</p>
+<h3 id="同时开启多个线程（方式二）"><a href="#同时开启多个线程（方式二）" class="headerlink" title="同时开启多个线程（方式二）"></a>同时开启多个线程（方式二）</h3><p>1、自定义类 继承Process类<br>2、必须实现一个run方法，run方法是在子进程中执行的代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyProcess</span><span class="params">(Process)</span>:</span><span class="comment">#创建MyProcess类，继承Process，实现run方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,arg1,arg2)</span>:</span><span class="comment">#传入参数</span></span><br><span class="line">        super().__init__()<span class="comment">#调用父类的init方法</span></span><br><span class="line">        self.arg1 = arg1</span><br><span class="line">        self.arg2 = arg2</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(self.pid)<span class="comment">#打印进程号</span></span><br><span class="line">        print(self.name)<span class="comment">#打印进程名</span></span><br><span class="line">        print(self.arg2)</span><br><span class="line">        print(os.getpid())</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(<span class="string">"主进程："</span>,os.getpid())</span><br><span class="line">    p1 = MyProcess()</span><br><span class="line">    p1.start()</span><br><span class="line">    p2 = MyProcess()</span><br><span class="line">    p2.start()</span><br></pre></td></tr></table></figure></p>
+<h3 id="多进程之间的数据隔离方法"><a href="#多进程之间的数据隔离方法" class="headerlink" title="多进程之间的数据隔离方法"></a>多进程之间的数据隔离方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> n</span><br><span class="line">    n= <span class="number">0</span></span><br><span class="line">    print(<span class="string">"pid:%s"</span>%os.getpid(),n)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    n = <span class="number">100</span></span><br><span class="line">    p = Process(target=func,)</span><br><span class="line">    p.start()</span><br><span class="line">    p.join()</span><br><span class="line">    print(<span class="string">"pid:%s"</span>%os.getpid(),n)</span><br></pre></td></tr></table></figure>
+<p>输出结果：<br>pid:24284 0<br>pid:24232 100</p>
+<p>上面的例子说明，进程之间的数据是相互隔离的，即进程之间不通过特殊的手段是没有办法进行共享数据的。</p>
+<h2 id="使用多进程实现socket服务端的并发效果"><a href="#使用多进程实现socket服务端的并发效果" class="headerlink" title="使用多进程实现socket服务端的并发效果"></a>使用多进程实现socket服务端的并发效果</h2><p>客户端：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">sk = socket.socket()</span><br><span class="line">sk.connect((<span class="string">"127.0.0.1"</span>,<span class="number">8080</span>))</span><br><span class="line">msg = sk.recv(<span class="number">1024</span>).decode(<span class="string">"utf-8"</span>)</span><br><span class="line">print(msg)</span><br><span class="line">msg2 = input(<span class="string">'&gt;&gt;&gt;'</span>).encode(<span class="string">'utf-8'</span>)</span><br><span class="line">sk.send(msg2)</span><br><span class="line">sk.close()</span><br></pre></td></tr></table></figure></p>
+<p>服务器端：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">serve</span><span class="params">(conn)</span>:</span></span><br><span class="line">    ret = <span class="string">"你好"</span>.encode(<span class="string">'utf-8'</span>)</span><br><span class="line">    conn.send(ret)</span><br><span class="line">    msg = conn.recv(<span class="number">1024</span>).decode(<span class="string">'utf-8'</span>)</span><br><span class="line">    print(msg)</span><br><span class="line">    conn.close()</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    sk = socket.socket()</span><br><span class="line">    sk.bind((<span class="string">"127.0.0.1"</span>, <span class="number">8080</span>))</span><br><span class="line">    sk.listen()</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        conn, addr = sk.accept()</span><br><span class="line">        p = Process(target=serve, args=(conn,))</span><br><span class="line">        p.start()</span><br><span class="line">    sk.close()</span><br></pre></td></tr></table></figure></p>
+<h2 id="守护进程"><a href="#守护进程" class="headerlink" title="守护进程"></a>守护进程</h2><p>守护进程即将子进程转换为守护进程，守护进程会随着主进程的代码执行完毕而结束，在主进程内结束一个子进程p.terminate()，结束一个进程不是在执行方法之后立即生效，需要一个操作系统响应的过程。检验一个进程是否活着的状态p.is_alive()</p>
+<p>例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        time.sleep(<span class="number">0.5</span>)</span><br><span class="line">        print(<span class="string">'我还活着'</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'in func2'</span>)</span><br><span class="line">    time.sleep(<span class="number">8</span>)</span><br><span class="line">    print(<span class="string">'in func2 finished'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    p = Process(target=func)</span><br><span class="line">    p.daemon = <span class="literal">True</span><span class="comment">#设置守护进程</span></span><br><span class="line">    p.start()</span><br><span class="line">    Process(target=func2).start()</span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> i&lt;<span class="number">10</span>:</span><br><span class="line">        print(<span class="string">'我是socket server'</span>)</span><br><span class="line">        time.sleep(<span class="number">5</span>)</span><br><span class="line">        i+=<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="进程锁"><a href="#进程锁" class="headerlink" title="进程锁"></a>进程锁</h2><p>买票需求：现在仅剩一张票，十个人来抢，即模拟抢票过程，在未加锁的情况下，数据会出现混乱，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Author：姜茶无糖 time：2019/12/8</span></span><br><span class="line"><span class="comment"># 进程锁</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(i)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'ticket'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        dic = json.load(f)</span><br><span class="line">    print(<span class="string">'余票：%s'</span>%dic[<span class="string">'ticket'</span>])</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">buy_ticket</span><span class="params">(i)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'ticket'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        dic = json.load(f)</span><br><span class="line">        time.sleep(<span class="number">0.1</span>)<span class="comment">#模拟取数据时的网络延时</span></span><br><span class="line">    <span class="keyword">if</span> dic[<span class="string">'ticket'</span>]&gt;<span class="number">0</span>:</span><br><span class="line">        dic[<span class="string">'ticket'</span>]-=<span class="number">1</span></span><br><span class="line">        print(<span class="string">'\033[32m%s买到票了\033[0m'</span>%i)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'\033[31m%s没买到票了\033[0m'</span>%i)</span><br><span class="line">    time.sleep(<span class="number">0.1</span>)  <span class="comment"># 模拟回传时的网络延时</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'ticket'</span>,<span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        dic = json.dump(dic,f)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        p = Process(target=show,args=(i,))</span><br><span class="line">        p.start()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        p = Process(target=buy_ticket, args=(i,))</span><br><span class="line">        p.start()</span><br></pre></td></tr></table></figure></p>
+<p>输出结果（截取）：<br>1买到票了<br>0买到票了<br>5买到票了<br>4没买到票了<br>2没买到票了<br>6没买到票了<br>3没买到票了<br>原本一张票  现在卖出去三张，不符合实际，因此为了保障数据的安全性，需要添加进程锁(Lock)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Lock</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'ticket'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        dic = json.load(f)</span><br><span class="line">    print(<span class="string">'余票：%s'</span>%dic[<span class="string">'ticket'</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">buy_ticket</span><span class="params">(i,lock)</span>:</span></span><br><span class="line">    lock.acquire()<span class="comment"># 拿钥匙进门</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'ticket'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        dic = json.load(f)</span><br><span class="line">        time.sleep(<span class="number">0.1</span>)<span class="comment">#模拟取数据时的网络延时</span></span><br><span class="line">    <span class="keyword">if</span> dic[<span class="string">'ticket'</span>]&gt;<span class="number">0</span>:</span><br><span class="line">        dic[<span class="string">'ticket'</span>]-=<span class="number">1</span></span><br><span class="line">        print(<span class="string">'\033[32m%s买到票了\033[0m'</span>%i)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'\033[31m%s没买到票了\033[0m'</span>%i)</span><br><span class="line">    time.sleep(<span class="number">0.1</span>)  <span class="comment"># 模拟回传时的网络延时</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'ticket'</span>,<span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        dic = json.dump(dic,f)</span><br><span class="line">    lock.release()<span class="comment"># 还钥匙</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    show()</span><br><span class="line">    lock = Lock()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        p = Process(target=buy_ticket, args=(i,lock))</span><br><span class="line">        p.start()</span><br></pre></td></tr></table></figure>
+<p>输出结果（截取）：<br>余票：1<br>2买到票了<br>1没买到票了<br>0没买到票了<br>3没买到票了<br>4没买到票了<br>8没买到票了<br>5没买到票了<br>9没买到票了<br>7没买到票了<br>6没买到票了</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById(&quot;QR&quot;); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="姜茶无糖 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="姜茶无糖 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/30/Python进程/" rel="next" title="Python 进程">
+                <i class="fa fa-chevron-left"></i> Python 进程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/28/Java基础编程第一章/" rel="prev" title="基础Java编程 第一章、入门">
+                基础Java编程 第一章、入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+	
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/pic4.jpg" alt="姜茶无糖">
+            
+              <p class="site-author-name" itemprop="name">姜茶无糖</p>
+              <div class="site-description motion-element" itemprop="description">所有的伟大都源于一个勇敢的开始</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/DCTyxx" title="GitHub &rarr; https://github.com/DCTyxx" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:newstarfish@163.com" title="E-Mail &rarr; mailto:newstarfish@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.jianshu.com/u/92f45e2cf2c0" title="简书 &rarr; https://www.jianshu.com/u/92f45e2cf2c0" rel="noopener" target="_blank"><i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#多道系统程序"><span class="nav-number">1.</span> <span class="nav-text">多道系统程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分时系统"><span class="nav-number">2.</span> <span class="nav-text">分时系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实时系统"><span class="nav-number">3.</span> <span class="nav-text">实时系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用操作系统"><span class="nav-number">4.</span> <span class="nav-text">通用操作系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是进程"><span class="nav-number">5.</span> <span class="nav-text">什么是进程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#狭义定义"><span class="nav-number">5.1.</span> <span class="nav-text">狭义定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#广义定义"><span class="nav-number">5.2.</span> <span class="nav-text">广义定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的概念"><span class="nav-number">5.3.</span> <span class="nav-text">进程的概念</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程的调度算法"><span class="nav-number">6.</span> <span class="nav-text">进程的调度算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程的并行与并发"><span class="nav-number">7.</span> <span class="nav-text">进程的并行与并发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#并行"><span class="nav-number">7.1.</span> <span class="nav-text">并行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发"><span class="nav-number">7.2.</span> <span class="nav-text">并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区别"><span class="nav-number">7.3.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步异步阻塞非阻塞"><span class="nav-number">8.</span> <span class="nav-text">同步异步阻塞非阻塞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的三状态转换图"><span class="nav-number">8.1.</span> <span class="nav-text">进程的三状态转换图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步和异步"><span class="nav-number">8.2.</span> <span class="nav-text">同步和异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻塞与非阻塞"><span class="nav-number">8.3.</span> <span class="nav-text">阻塞与非阻塞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞的形式"><span class="nav-number">8.3.1.</span> <span class="nav-text">阻塞的形式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程的开始与结束"><span class="nav-number">9.</span> <span class="nav-text">进程的开始与结束</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的开始"><span class="nav-number">9.1.</span> <span class="nav-text">进程的开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的结束"><span class="nav-number">9.2.</span> <span class="nav-text">进程的结束</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在Python程序中的进程操作"><span class="nav-number">10.</span> <span class="nav-text">在Python程序中的进程操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建进程（multiprocessing）"><span class="nav-number">10.1.</span> <span class="nav-text">创建进程（multiprocessing）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的生命周期"><span class="nav-number">10.2.</span> <span class="nav-text">进程的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多进程当中的几个方法"><span class="nav-number">10.3.</span> <span class="nav-text">多进程当中的几个方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#join-方法"><span class="nav-number">10.3.1.</span> <span class="nav-text">join()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同时开启多个线程（方式一）"><span class="nav-number">10.3.2.</span> <span class="nav-text">同时开启多个线程（方式一）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同时开启多个线程（方式二）"><span class="nav-number">10.3.3.</span> <span class="nav-text">同时开启多个线程（方式二）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多进程之间的数据隔离方法"><span class="nav-number">10.3.4.</span> <span class="nav-text">多进程之间的数据隔离方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用多进程实现socket服务端的并发效果"><span class="nav-number">10.4.</span> <span class="nav-text">使用多进程实现socket服务端的并发效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#守护进程"><span class="nav-number">10.5.</span> <span class="nav-text">守护进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程锁"><span class="nav-number">10.6.</span> <span class="nav-text">进程锁</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">姜茶无糖</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_pv"></span>
+  </span>
+  </div>  
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共38.2k字</span>
+</div>
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+  
+  
+  <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2019/12/07/Python多线程/";
+    this.page.identifier = "2019/12/07/Python多线程/";
+    this.page.title = 'Python 多线程';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
